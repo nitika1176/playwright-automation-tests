@@ -1,0 +1,16 @@
+# node
+node_modules/
+package-lock.json
+
+# IDEs
+.vscode/
+
+
+# logs, system files
+*.log
+.DS_Store
+
+# test outputs / reports / local env
+allure-results/
+playwright-report/
+.env
