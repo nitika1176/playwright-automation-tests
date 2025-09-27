@@ -14,6 +14,13 @@ pipeline {
             }
         }
 
+        stage('Install Playwright Browsers') {
+            steps {
+                // Downloads Chromium, Firefox, WebKit for Playwright
+                bat 'npx playwright install'
+            }
+        }
+
         stage('Run Tests') {
             steps {
                 bat 'npm run clean:allure'
@@ -29,3 +36,4 @@ pipeline {
         }
     }
 }
+
