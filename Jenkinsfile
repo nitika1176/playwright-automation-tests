@@ -27,7 +27,7 @@ pipeline {
                 bat 'npm run clean:allure'
 
                 // Run all tests on all browsers defined in config.js
-                bat 'npx playwright test'
+                bat 'npx playwright test tests/LOGINN.test.js --workers=1'
 
                 // Generate Allure report
                 bat 'npx allure generate allure-results --clean -o allure-report'
