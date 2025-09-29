@@ -21,7 +21,7 @@ pipeline {
             }
         }
 
-        stage('Run Tests - All Browsers') {
+        stage('Run LOGINN Test - All Browsers') {
             steps {
                 // Clean previous Allure results
                 bat 'npm run clean:allure'

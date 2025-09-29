@@ -1,0 +1,1 @@
+{"total":2,"items":[{"uid":"d7d2e7a126e5e171795da0668acd7494","name":"tests\\LOGINN.test.js","statistic":{"failed":0,"broken":0,"skipped":0,"passed":10,"unknown":0,"total":10}},{"uid":"e9c3ca940fa64c401a44c4e57945f730","name":"playwright-automation-tests\\tests\\LOGINN.test.js","statistic":{"failed":0,"broken":0,"skipped":0,"passed":10,"unknown":0,"total":10}}]}
