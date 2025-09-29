@@ -16,15 +16,20 @@ pipeline {
 
         stage('Install Playwright Browsers') {
             steps {
-                // Downloads Chromium, Firefox, WebKit for Playwright
+                // Install Chromium, Firefox, WebKit
                 bat 'npx playwright install'
             }
         }
 
-        stage('Run Tests') {
+        stage('Run Tests - All Browsers') {
             steps {
+                // Clean previous Allure results
                 bat 'npm run clean:allure'
-                bat 'npx playwright test tests/LOGINN.test.js'
+
+                // Run all tests on all browsers defined in config.js
+                bat 'npx playwright test'
+
+                // Generate Allure report
                 bat 'npx allure generate allure-results --clean -o allure-report'
             }
         }
@@ -36,4 +41,3 @@ pipeline {
         }
     }
 }
-

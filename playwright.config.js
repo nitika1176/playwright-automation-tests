@@ -6,9 +6,9 @@ module.exports = defineConfig({
     timeout: 20000, // default timeout for expect()
   },
   reporter: [
-    ['list', { open: 'never' }], // ✔ Clean console logs (lists all tests with status)
+    ['list', { open: 'never' }], // ✔ Clean console logs
     ['html', { open: 'never' }], // ✔ HTML report
-    ['allure-playwright'],       // ✔ Allure report (optional)
+    ['allure-playwright'],       // ✔ Allure report
   ],
   use: {
     screenshot: 'on',            // 📸 Screenshot for all tests
@@ -17,7 +17,18 @@ module.exports = defineConfig({
     navigationTimeout: 30000,
   },
   retries: 0, // You can adjust retries if needed
-});
 
+  // ✅ Add this section to run tests on multiple browsers
+  projects: [
+    {
+      name: 'chromium',
+      use: { browserName: 'chromium' },
+    },
+    {
+      name: 'firefox',
+      use: { browserName: 'firefox' },
+    },
+  ],
+});
 
 
