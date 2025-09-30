@@ -26,9 +26,17 @@ pipeline {
 
         stage('Run LOGINN Test - All Browsers') {
             steps {
+                // Clean previous Allure results
                 bat 'npm run clean:allure'
+
+                // Run tests sequentially
                 bat 'npx playwright test tests/LOGINN.test.js --workers=1'
+
+                // Generate Allure report
                 bat 'npx allure generate allure-results --clean -o allure-report'
+
+                // List contents of allure-report to confirm
+                bat 'dir allure-report'
             }
         }
 
@@ -43,8 +51,14 @@ pipeline {
         always {
             script {
                 try {
-                    // Zip the Allure report folder
-                    bat 'powershell Compress-Archive -Path "allure-report\\*" -DestinationPath "allure-report.zip" -Force'
+                    echo "Workspace contents before zipping:"
+                    bat 'dir /s'
+
+                    // Zip the Allure report using full workspace path
+                    bat 'powershell -Command "Compress-Archive -Path \'%WORKSPACE%\\allure-report\\*\' -DestinationPath \'%WORKSPACE%\\allure-report.zip\' -Force"'
+
+                    echo "Workspace contents after zipping:"
+                    bat 'dir /s'
 
                     // Send email with the zipped Allure report attached
                     mail body: "Please find attached the Allure report for this build.",
@@ -56,7 +70,7 @@ pipeline {
                 } catch (err) {
                     echo "Email sending failed: ${err}"
                 }
-            } // closes script
-        } // closes always
-    } // closes post
-} // closes pipeline
+            }
+        }
+    }
+}
