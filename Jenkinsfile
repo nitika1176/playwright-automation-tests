@@ -35,7 +35,7 @@ pipeline {
                 // Generate Allure report
                 bat 'npx allure generate allure-results --clean -o allure-report'
 
-                // List contents of allure-report to confirm
+                // Debug: list contents of allure-report
                 bat 'dir allure-report'
             }
         }
@@ -54,13 +54,19 @@ pipeline {
                     echo "Workspace contents before zipping:"
                     bat 'dir /s'
 
-                    // Zip the Allure report using full workspace path
-                    bat 'powershell -Command "Compress-Archive -Path \'%WORKSPACE%\\allure-report\\*\' -DestinationPath \'%WORKSPACE%\\allure-report.zip\' -Force"'
+                    // Zip only if folder exists, ignore errors
+                    bat '''
+                    if exist allure-report (
+                        powershell Compress-Archive -Path "allure-report\\*" -DestinationPath "allure-report.zip" -Force
+                    ) else (
+                        echo "Allure report folder does not exist, skipping zip"
+                    )
+                    '''
 
                     echo "Workspace contents after zipping:"
                     bat 'dir /s'
 
-                    // Send email with the zipped Allure report attached
+                    // Send email with attachment if exists
                     mail body: "Please find attached the Allure report for this build.",
                          subject: "Jenkins Build - Allure Report",
                          to: "sharmanitika1111@gmail.com",
