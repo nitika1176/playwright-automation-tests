@@ -40,16 +40,12 @@ pipeline {
     }
 
     post {
-        always {
-            // Zip the Allure report folder (Windows PowerShell command)
-            bat 'powershell Compress-Archive -Path allure-report\\* -DestinationPath allure-report.zip'
-
-            // Send email with the zipped Allure report attached
-            mail body: "Please find attached the Allure report for this build.", 
-                 subject: "Jenkins Build - Allure Report", 
-                 to: "manager_email@domain.com", 
-                 attachLog: true, 
-                 attachmentsPattern: 'allure-report.zip'
-        }
+    always {
+        bat 'powershell Compress-Archive -Path allure-report\\* -DestinationPath allure-report.zip'
+        mail body: "Please find attached the Allure report for this build.", 
+             subject: "Jenkins Build - Allure Report", 
+             to: "sharmanitika1111@gmail.com", 
+             attachLog: true, 
+             attachmentsPattern: 'allure-report.zip'
     }
 }
