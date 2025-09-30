@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    triggers {
+        cron('15 11 * * *') // Runs daily at 11:15 AM
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -16,20 +20,14 @@ pipeline {
 
         stage('Install Playwright Browsers') {
             steps {
-                // Install Chromium, Firefox, WebKit
                 bat 'npx playwright install'
             }
         }
 
         stage('Run LOGINN Test - All Browsers') {
             steps {
-                // Clean previous Allure results
                 bat 'npm run clean:allure'
-
-                // Run all tests on all browsers defined in config.js
                 bat 'npx playwright test tests/LOGINN.test.js --workers=1'
-
-                // Generate Allure report
                 bat 'npx allure generate allure-results --clean -o allure-report'
             }
         }
@@ -41,3 +39,4 @@ pipeline {
         }
     }
 }
+
