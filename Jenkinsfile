@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     triggers {
-        cron('15 12 * * *') // Runs daily at 12:15 PM
+        cron('23 11 * * *') // Runs daily at 11:23 AM
     }
 
     stages {
@@ -38,5 +38,18 @@ pipeline {
             }
         }
     }
-}
 
+    post {
+        always {
+            // Zip the Allure report folder (Windows PowerShell command)
+            bat 'powershell Compress-Archive -Path allure-report\\* -DestinationPath allure-report.zip'
+
+            // Send email with the zipped Allure report attached
+            mail body: "Please find attached the Allure report for this build.", 
+                 subject: "Jenkins Build - Allure Report", 
+                 to: "manager_email@domain.com", 
+                 attachLog: true, 
+                 attachmentsPattern: 'allure-report.zip'
+        }
+    }
+}
