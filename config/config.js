@@ -1,8 +1,8 @@
 const config = {
-    baseURL: "https://practicesoftwaretesting.com/auth/login",
+    baseURL: "https://staging.eurasiaexchanges.com/login",
 
-    validEmail: "test@yopmail.com",
-    validPassword: "Niti@$123",
+    validEmail: "nitika.s@antiersolutions.com",
+    validPassword: "Test@1994",
 
     invalidEmailwithoutDomain: "invalid",
     invalidPassword: "WrongPass",

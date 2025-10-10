@@ -23,7 +23,7 @@ test.describe('LOGINN Tests - 20 Scenarios', () => {
     await loginPage.enterPassword(config.validPassword);
     await loginPage.clickLogin();
     const InvalidFormatEmailErrorMessage = await loginPage.getInvalidEmailFormatMessage();
-    expect(InvalidFormatEmailErrorMessage).toContain('Email format is invalid');
+    expect(InvalidFormatEmailErrorMessage).toContain('Please enter valid email.');
   });
 
 
